@@ -1,0 +1,19 @@
+language: generic
+
+services:
+  - docker
+
+env:
+  global:
+    - CI_COMMIT_TAG="${TRAVIS_TAG}"
+
+jobs:
+  include:
+    - stage: Build master
+      script:
+        - make build
+      if: branch = master
+    - stage: Build tag
+      script:
+        - make build-tag
+      #if: (branch = master) AND (tag IS present)
